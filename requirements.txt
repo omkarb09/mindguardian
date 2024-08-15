@@ -1,0 +1,9 @@
+pinecone-client
+langchain
+sentence-transformers
+langchain_groq
+groq
+einops
+nomic
+numpy==1.24.1
+streamlit
