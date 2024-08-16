@@ -8,6 +8,10 @@ from langchain.chains import LLMChain
 from langchain_groq import ChatGroq
 import streamlit as st
 
+@st.cache_resource
+def load_embedding_model():
+    return SentenceTransformer("nomic-ai/nomic-embed-text-v1.5", trust_remote_code=True)
+    
 class Chatbot:
     def __init__(self):
         print("New chatbot object created")
@@ -17,7 +21,7 @@ class Chatbot:
         conversational_memory_length = 40 # number of previous messages the chatbot will remember during the conversation
         self.memory = ConversationBufferWindowMemory(k=conversational_memory_length, memory_key="chat_history", return_messages=True)
         self.system_prompt = 'You are a expert mental health counseling chatbot named Mindguardian, You provide professional mental health counseling to users'
-        self.embedding_model = SentenceTransformer("nomic-ai/nomic-embed-text-v1.5", trust_remote_code=True)
+        self.embedding_model = load_embedding_model()
         self.context=None
 
         llm_model = 'llama-3.1-70b-versatile'
